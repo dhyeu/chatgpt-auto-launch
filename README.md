@@ -2,7 +2,7 @@
 
 🚀 **Your personal AI assistant, now just one sidebar away.**
 
-ChatGPT Auto Launch brings the power of ChatGPT Plus into VS Code — no Copilot Pro required. Launch prompts, refactor code, explain logic, or ask custom questions straight from your editor, all with a clean, minimal interface built for speed and flow.
+ChatGPT Auto Launch brings the power of ChatGPT into VS Code — no Copilot Pro required. Launch prompts, refactor code, explain logic, or ask custom questions straight from your editor, all with a clean, minimal interface built for speed and flow.
 
 ---
 
