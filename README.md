@@ -10,7 +10,7 @@ ChatGPT Auto Launch brings the power of ChatGPT Plus into VS Code — no Copilot
 
 - 🧠 One-click prompt templates: Explain, Refactor, Beautify
 - 🎯 Custom prompt input for ChatGPT
-- 💻 Opens directly in browser (ChatGPT Plus required)
+- 💻 Opens directly in browser
 - 🎨 Sleek, animated UI with cursor-aware glow effects
 - 🌘 Dark mode friendly & theme adaptive
 - 🧹 Clean UX inspired by GitHub Copilot Chat — without the lock-in
