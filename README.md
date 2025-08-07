@@ -27,9 +27,7 @@ Simple. Fast. No API key needed.
 
 ---
 
-## 📦 Requirements
-
-- A [ChatGPT Plus](https://chat.openai.com) account  
+## 📦 Requirements 
 - VS Code v1.80+  
 - Internet access to open ChatGPT in your browser
 
