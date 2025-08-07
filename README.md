@@ -1,17 +1,68 @@
-# ChatGPT Auto Launch (VS Code Extension)
+# ChatGPT Auto Launch
 
-A minimal yet beautiful VS Code extension that lets ChatGPT Plus users launch ChatGPT in a custom sidebar — no Copilot Pro required.
+🚀 **Your personal AI assistant, now just one sidebar away.**
+
+ChatGPT Auto Launch brings the power of ChatGPT Plus into VS Code — no Copilot Pro required. Launch prompts, refactor code, explain logic, or ask custom questions straight from your editor, all with a clean, minimal interface built for speed and flow.
+
+![screenshot](./media/screenshot.png)
+
+---
 
 ## ✨ Features
 
-- 🧠 Prompt shortcuts: Explain, Refactor, Beautify code
-- 🖊 Custom prompt input
-- 🎨 Clean UI styled like Copilot Chat
-- 💡 Animations, hover glow, and cursor-aware buttons
-- 🧭 Opens ChatGPT in your browser with one click
+- 🧠 One-click prompt templates: Explain, Refactor, Beautify
+- 🎯 Custom prompt input for ChatGPT
+- 💻 Opens directly in browser (ChatGPT Plus required)
+- 🎨 Sleek, animated UI with cursor-aware glow effects
+- 🌘 Dark mode friendly & theme adaptive
+- 🧹 Clean UX inspired by GitHub Copilot Chat — without the lock-in
 
-## 🚀 Installation
+---
 
+## 🔧 How It Works
+
+1. Select any code in your editor
+2. Click a prompt (or type your own)
+3. Your prompt opens in ChatGPT, prefilled and ready to go
+
+Simple. Fast. No API key needed.
+
+---
+
+## 📦 Requirements
+
+- A [ChatGPT Plus](https://chat.openai.com) account  
+- VS Code v1.80+  
+- Internet access to open ChatGPT in your browser
+
+---
+
+## 💡 Pro Tips
+
+- Use `Repeat Last Prompt` for iterative refinement
+- Works with all programming languages
+- Custom prompt injection coming in v0.1.0+
+
+---
+
+## 🔒 Privacy
+
+No tracking. No API keys. No nonsense.  
+This extension opens prompts in your browser — that’s it.
+
+---
+
+## 📷 Screenshots
+
+> _Coming soon_: animated GIF preview in README + Marketplace
+
+---
+
+## 📄 License
+
+MIT — see [LICENSE](./LICENSE)
+
+## 🚀 Installation (locally through github)
 1. Clone the repo:
    ```bash
    git clone https://github.com/yourusername/chatgpt-auto-launch.git
