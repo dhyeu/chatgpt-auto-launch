@@ -35,17 +35,17 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatGPTSidebarProvider = void 0;
 const vscode = __importStar(require("vscode"));
-const fs = __importStar(require("fs"));
 const promptUtils_1 = require("./promptUtils");
 class ChatGPTSidebarProvider {
     constructor(context) {
         this.context = context;
     }
-    resolveWebviewView(webviewView) {
+    async resolveWebviewView(webviewView) {
         webviewView.webview.options = {
-            enableScripts: true
+            enableScripts: true,
+            localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'public')]
         };
-        webviewView.webview.html = this.getHtml(webviewView.webview);
+        webviewView.webview.html = await this.getHtml(webviewView.webview);
         webviewView.webview.onDidReceiveMessage(async (message) => {
             if (message.command === 'sendPrompt') {
                 let finalPrompt = message.prompt;
@@ -78,10 +78,11 @@ class ChatGPTSidebarProvider {
             }
         });
     }
-    getHtml(webview) {
-        const htmlPath = vscode.Uri.joinPath(this.context.extensionUri, 'public', 'sidebar.html');
-        let html = fs.readFileSync(htmlPath.fsPath, 'utf8');
-        // Resolve asset paths (for any images, CSS, etc.)
+    async getHtml(webview) {
+        const htmlUri = vscode.Uri.joinPath(this.context.extensionUri, 'public', 'sidebar.html');
+        const rawBytes = await vscode.workspace.fs.readFile(htmlUri);
+        let html = Buffer.from(rawBytes).toString('utf8');
+        // Convert relative asset paths to webview-safe URIs
         html = html.replace(/(src|href)="(.+?)"/g, (_match, attr, path) => {
             const resourceUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'public', path));
             return `${attr}="${resourceUri}"`;

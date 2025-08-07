@@ -3,15 +3,32 @@
   "displayName": "ChatGPT Auto Launch",
   "description": "Sidebar launcher for ChatGPT in your browser.",
   "version": "0.0.1",
+  "publisher": "dhyeu",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "keywords": [
+    "chatgpt",
+    "ai",
+    "gpt",
+    "openai",
+    "chat",
+    "vscode",
+    "sidebar",
+    "webview",
+    "extension",
+    "refactorCode",
+    "explainCode",
+    "beautifyCode",
+    "copilot"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhyeu/chatgpt-auto-launch.git"
+  },
   "engines": {
     "vscode": "^1.80.0"
   },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "*"
-  ],
+  "categories": ["Other"],
   "main": "./out/extension.js",
   "contributes": {
     "viewsContainers": {
@@ -27,7 +44,7 @@
       "chatgpt": [
         {
           "type": "webview",
-          "id": "chatgptSidebar",
+          "id": "chatgpt-sidebar-view",
           "name": "ChatGPT Sidebar",
           "icon": "media/icon.svg"
         }

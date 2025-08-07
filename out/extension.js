@@ -51,7 +51,7 @@ const beautifyUtils_1 = require("./beautifyUtils");
 function activate(context) {
     console.log("✅ ChatGPT Extension activated");
     const provider = new chatgptSidebarProvider_1.ChatGPTSidebarProvider(context);
-    context.subscriptions.push(vscode.window.registerWebviewViewProvider("chatgptSidebar", provider));
+    context.subscriptions.push(vscode.window.registerWebviewViewProvider("chatgpt-sidebar-view", provider));
     // 🧠 Explain Code Command
     context.subscriptions.push(vscode.commands.registerCommand('chatgptAutoLaunch.explainCode', async () => {
         const editor = vscode.window.activeTextEditor;

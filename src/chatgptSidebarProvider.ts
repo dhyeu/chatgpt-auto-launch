@@ -1,16 +1,16 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
 import { buildPrompt } from './promptUtils';
 
 export class ChatGPTSidebarProvider implements vscode.WebviewViewProvider {
   constructor(private readonly context: vscode.ExtensionContext) {}
 
-  resolveWebviewView(webviewView: vscode.WebviewView) {
+  public async resolveWebviewView(webviewView: vscode.WebviewView) {
     webviewView.webview.options = {
-      enableScripts: true
+      enableScripts: true,
+      localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'public')]
     };
 
-    webviewView.webview.html = this.getHtml(webviewView.webview);
+    webviewView.webview.html = await this.getHtml(webviewView.webview);
 
     webviewView.webview.onDidReceiveMessage(async (message) => {
       if (message.command === 'sendPrompt') {
@@ -59,12 +59,13 @@ export class ChatGPTSidebarProvider implements vscode.WebviewViewProvider {
     });
   }
 
-  private getHtml(webview: vscode.Webview): string {
-    const htmlPath = vscode.Uri.joinPath(this.context.extensionUri, 'public', 'sidebar.html');
-    let html = fs.readFileSync(htmlPath.fsPath, 'utf8');
+  private async getHtml(webview: vscode.Webview): Promise<string> {
+    const htmlUri = vscode.Uri.joinPath(this.context.extensionUri, 'public', 'sidebar.html');
+    const rawBytes = await vscode.workspace.fs.readFile(htmlUri);
+    let html = Buffer.from(rawBytes).toString('utf8');
 
-    // Resolve asset paths (for any images, CSS, etc.)
-    html = html.replace(/(src|href)="(.+?)"/g, (_match: string, attr: string, path: string) => {
+    // Convert relative asset paths to webview-safe URIs
+    html = html.replace(/(src|href)="(.+?)"/g, (_match, attr, path) => {
       const resourceUri = webview.asWebviewUri(
         vscode.Uri.joinPath(this.context.extensionUri, 'public', path)
       );
