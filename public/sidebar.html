@@ -1,0 +1,250 @@
+<!--
+    Generates the HTML content for the webview
+    This method returns a string containing the HTML structure
+    It includes buttons for common tasks and an input field for custom prompts.
+    The buttons trigger messages to be sent to the webview for processing.
+    The HTML is styled to match the VS Code theme and provide a user-friendly interface.
+    The HTML includes a script to handle button clicks and send messages back to the extension.
+    The script uses the acquireVsCodeApi function to communicate with the extension.
+    The HTML structure includes sections for explaining code, refactoring, and beautifying code.
+    It also includes a custom input field for users to write their own prompts.
+    The HTML is designed to be responsive and user-friendly, with buttons that change color on hover.
+    The HTML is returned as a string to be set as the webview's content.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+        font-family: "Inter", system-ui, sans-serif;
+        padding: 16px;
+        color: var(--vscode-editor-foreground);
+        background-color: var(--vscode-editor-background);
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 1.5rem;
+        animation: fadeIn 0.8s ease-in;
+    }
+
+    .logo {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        display: inline-block;
+        animation: pulse 3s infinite;
+        color: var(--vscode-editor-foreground);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 0.85;
+        }
+        50% {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--vscode-editor-foreground);
+    }
+
+    .button {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--vscode-button-secondaryBackground);
+        color: var(--vscode-button-secondaryForeground);
+        border: 1px solid var(--vscode-button-border, transparent);
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        margin: 6px 0;
+        width: 100%;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .button::before {
+        content: '';
+        position: absolute;
+        top: var(--y);
+        left: var(--x);
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, var(--vscode-focusBorder) 0%, transparent 60%);
+        opacity: 0.3;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: top 0s ease, left 0s ease;
+    }
+
+    .button:hover {
+        background-color: var(--vscode-button-secondaryHoverBackground);
+        transform: translateY(-2px);
+        box-shadow: 0 0 6px 1px var(--vscode-focusBorder);
+    }
+
+    .button:active {
+        transform: scale(0.97);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .fade-in {
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeInButtons {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+   
+    .divider {
+        border-top: 1px solid var(--vscode-panel-border);
+        margin: 20px 0;
+    }
+
+    .custom {
+        display: flex;
+        gap: 8px;
+    }
+
+    .custom input {
+        flex: 1;
+        border: 1px solid var(--vscode-editorWidget-border);
+        border-radius: 20px;
+        padding: 8px 14px;
+        font-size: 0.9rem;
+        outline: none;
+        background-color: var(--vscode-input-background);
+        color: var(--vscode-input-foreground);
+        font-family: "Inter", system-ui, sans-serif;
+    }
+
+    .custom button {
+        border-radius: 20px;
+        padding: 8px 14px;
+        background-color: var(--vscode-input-background);
+        border: 1px solid var(--vscode-input-border);
+        color: var(--vscode-input-foreground);
+        cursor: pointer;
+        font-family: "Inter", system-ui, sans-serif;
+    }
+
+    .custom button:hover {
+        background-color: var(--vscode-inputOption-hoverBackground);
+    }
+
+    .footer {
+        font-size: 0.8rem;
+        color: var(--vscode-descriptionForeground);
+        margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+    <div class="header">
+        <svg class="logo" viewBox="0 0 721 721" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <g clip-path="url(#clip0_1637_2935)">
+            <g clip-path="url(#clip1_1637_2935)">
+                <path d="M304.246 295.411V249.828C304.246 245.989 305.687 243.109 309.044 241.191L400.692 188.412C413.167 181.215 428.042 177.858 443.394 177.858C500.971 177.858 537.44 222.482 537.44 269.982C537.44 273.34 537.44 277.179 536.959 281.018L441.954 225.358C436.197 222 430.437 222 424.68 225.358L304.246 295.411ZM518.245 472.945V364.024C518.245 357.304 515.364 352.507 509.608 349.149L389.174 279.096L428.519 256.543C431.877 254.626 434.757 254.626 438.115 256.543L529.762 309.323C556.154 324.679 573.905 357.304 573.905 388.971C573.905 425.436 552.315 459.024 518.245 472.941V472.945ZM275.937 376.982L236.592 353.952C233.235 352.034 231.794 349.154 231.794 345.315V239.756C231.794 188.416 271.139 149.548 324.4 149.548C344.555 149.548 363.264 156.268 379.102 168.262L284.578 222.964C278.822 226.321 275.942 231.119 275.942 237.838V376.986L275.937 376.982ZM360.626 425.922L304.246 394.255V327.083L360.626 295.416L417.002 327.083V394.255L360.626 425.922ZM396.852 571.789C376.698 571.789 357.989 565.07 342.151 553.075L436.674 498.374C442.431 495.017 445.311 490.219 445.311 483.499V344.352L485.138 367.382C488.495 369.299 489.936 372.179 489.936 376.018V481.577C489.936 532.917 450.109 571.785 396.852 571.785V571.789ZM283.134 464.79L191.486 412.01C165.094 396.654 147.343 364.029 147.343 332.362C147.343 295.416 169.415 262.309 203.48 248.393V357.791C203.48 364.51 206.361 369.308 212.117 372.665L332.074 442.237L292.729 464.79C289.372 466.707 286.491 466.707 283.134 464.79ZM277.859 543.48C223.639 543.48 183.813 502.695 183.813 452.314C183.813 448.475 184.294 444.636 184.771 440.797L279.295 495.498C285.051 498.856 290.812 498.856 296.568 495.498L417.002 425.927V471.509C417.002 475.349 415.562 478.229 412.204 480.146L320.557 532.926C308.081 540.122 293.206 543.48 277.854 543.48H277.859ZM396.852 600.576C454.911 600.576 503.37 559.313 514.41 504.612C568.149 490.696 602.696 440.315 602.696 388.976C602.696 355.387 588.303 322.762 562.392 299.25C564.791 289.173 566.231 279.096 566.231 269.024C566.231 200.411 510.571 149.067 446.274 149.067C433.322 149.067 420.846 150.984 408.37 155.305C386.775 134.192 357.026 120.758 324.4 120.758C266.342 120.758 217.883 162.02 206.843 216.721C153.104 230.637 118.557 281.018 118.557 332.357C118.557 365.946 132.95 398.571 158.861 422.083C156.462 432.16 155.022 442.237 155.022 452.309C155.022 520.922 210.682 572.266 274.978 572.266C287.931 572.266 300.407 570.349 312.883 566.028C334.473 587.141 364.222 600.576 396.852 600.576Z" fill="currentColor"/>
+            </g>
+            </g>
+            <defs>
+            <clipPath id="clip0_1637_2935">
+                <rect width="720" height="720" fill="white" transform="translate(0.606934 0.899902)" />
+            </clipPath>
+            <clipPath id="clip1_1637_2935">
+                <rect width="484.139" height="479.818" fill="white" transform="translate(118.557 120.758)" />
+            </clipPath>
+            </defs>
+        </svg>
+        <h3>ChatGPT Copilot</h3>
+    </div>
+
+  <div class="button-group fade-in">
+    <button class="button" onclick="sendPrompt('EXPLAIN')">🧠 Explain Selected Code</button>
+    <button class="button" onclick="sendPrompt('REFACTOR')">🔧 Refactor Selected Code</button>
+    <button class="button" onclick="sendPrompt('LAST')">🔁 Repeat Last Prompt</button>
+    <button class="button" onclick="sendPrompt('BEAUTIFY')">🧹 Beautify Selected Code</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="custom">
+    <input id="customPrompt" placeholder="Write your own prompt..." />
+    <button onclick="sendCustom()">➤</button>
+  </div>
+
+  <div class="footer">
+    Tip: Select code before clicking Explain, Refactor, or Beautify.
+  </div>
+
+  <script>
+    const vscode = acquireVsCodeApi();
+
+    document.querySelectorAll('.button').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            btn.style.setProperty('--x', `${x}px`);
+            btn.style.setProperty('--y', `${y}px`);
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            // Reset glow position to center or hide it
+            btn.style.setProperty('--x', `-9999px`);
+            btn.style.setProperty('--y', `-9999px`);
+        });
+    });
+
+    function sendPrompt(type) {
+        if (type === 'LAST') {
+            vscode.postMessage({ command: 'sendLastPrompt' });
+        } else if (type === 'BEAUTIFY') {
+            vscode.postMessage({ command: 'beautifyCode' });
+        } else {
+            vscode.postMessage({ command: 'sendPrompt', prompt: type });
+        }
+    }
+
+    function sendCustom() {
+        const input = document.getElementById('customPrompt').value;
+        if (input.trim()) {
+            vscode.postMessage({ command: 'sendPrompt', prompt: input });
+        }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+{
+  "name": "chatgpt-auto-launch",
+  "displayName": "ChatGPT Auto Launch",
+  "description": "Sidebar launcher for ChatGPT in your browser.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "chatgpt",
+          "title": "ChatGPT",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "chatgpt": [
+        {
+          "type": "webview",
+          "id": "chatgptSidebar",
+          "name": "ChatGPT Sidebar",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "chatgptAutoLaunch.explainCode",
+        "title": "Explain Code with ChatGPT",
+        "category": "ChatGPT"
+      },
+      {
+        "command": "chatgptAutoLaunch.refactorCode",
+        "title": "Refactor Code with ChatGPT",
+        "category": "ChatGPT"
+      },
+      {
+        "command": "chatgptAutoLaunch.beautifyCode",
+        "title": "Beautify Selected Code",
+        "category": "ChatGPT"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "chatgptAutoLaunch.explainCode",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        },
+        {
+          "command": "chatgptAutoLaunch.refactorCode",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        },
+        {
+          "command": "chatgptAutoLaunch.beautifyCode",
+          "when": "editorHasSelection",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.0",
+    "@types/prettier": "^3.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "prettier": "^3.6.2"
+  }
+}
