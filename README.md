@@ -2,8 +2,6 @@
 
 A minimal yet beautiful VS Code extension that lets ChatGPT Plus users launch ChatGPT in a custom sidebar — no Copilot Pro required.
 
-![screenshot](./media/screenshot.png)
-
 ## ✨ Features
 
 - 🧠 Prompt shortcuts: Explain, Refactor, Beautify code
